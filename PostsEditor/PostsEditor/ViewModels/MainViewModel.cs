@@ -120,9 +120,10 @@ namespace PostsEditor.ViewModels
         void RemovePost()
         {
             _posts.RemoveAt(CurrentPostRealIndex);
-            if (CurrentPostIndex == _posts.Count)
+            if (CurrentPostRealIndex == _posts.Count)
                 CurrentPostIndex--;
             OnPropertyChanged(nameof(PostsCount));
+            OnPropertyChanged(nameof(CurrentPost));
         }
 
         void SelectNext(object parameter)

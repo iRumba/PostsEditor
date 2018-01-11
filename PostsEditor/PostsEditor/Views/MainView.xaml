@@ -11,31 +11,60 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <Grid Margin="10">
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Right" Width="300">
-                <DockPanel Margin="0 0 0 5">
+        <DockPanel Margin="5">
+            <StackPanel DockPanel.Dock="Right" Width="300" Margin="5">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="TextElement.FontSize" Value="24"/>
+                    </Style>
+                </StackPanel.Resources>
+                <DockPanel Margin="0 0 0 10">
                     <Button DockPanel.Dock="Right" Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
                             Command="{Binding OpenDirectoryCommand}">...</Button>
-                    <TextBox IsReadOnly="True" Text="{Binding Directory, Mode=OneWay}"/>
+                    <TextBox IsReadOnly="True" Text="{Binding Directory, Mode=OneWay}" MaxLines="1"/>
                 </DockPanel>
-                <StackPanel Margin="0 0 0 5" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Command="{Binding PrevCommand}">&lt;&lt;&lt;</Button>
-                    <TextBlock Margin="5 0">
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Command="{Binding PrevCommand}" Padding="5">&lt;&lt;&lt;</Button>
+                    <TextBlock Margin="5 0" VerticalAlignment="Center" FontSize="24" Width="100" TextAlignment="Center">
                         <Run Text="{Binding CurrentPostIndex}"/>
                         /
                         <Run Text="{Binding PostsCount, Mode=OneWay}"/>
                     </TextBlock>
                     <Button Command="{Binding NextCommand}">&gt;&gt;&gt;</Button>
                 </StackPanel>
-                <Button Command="{Binding RemakeCommand}" Margin="0 0 0 5">Переделать</Button>
-                <Button Command="{Binding RemoveCommand}" Margin="0 0 0 5">Удалить</Button>
+                <Button Command="{Binding RemakeCommand}" Margin="0 0 0 10" Background="#FFA982CD">Переделать</Button>
+                <Button Command="{Binding RemoveCommand}" Margin="0 0 0 10" Background="#FFEC7D7D">Удалить</Button>
             </StackPanel>
-            <DockPanel DataContext="{Binding CurrentPost}">
-                <ScrollViewer DockPanel.Dock="Top" Height="200">
-                    <TextBox Text="{Binding Text}" TextWrapping="Wrap"/>
+            <Grid Margin="5" DataContext="{Binding CurrentPost}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <TextBox Text="{Binding Text}" TextWrapping="Wrap" AcceptsReturn="True"/>
                 </ScrollViewer>
-                <Image Source="{Binding Image}" Stretch="Uniform"/>
-            </DockPanel>
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch">
+                    <GridSplitter.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB2B2B2" Offset="0.5"/>
+                            <GradientStop Offset="1"/>
+                            <GradientStop/>
+                        </LinearGradientBrush>
+                    </GridSplitter.Background>
+                </GridSplitter>
+                <Grid Grid.Row="2">
+                    <Border Background="LightGray" BorderBrush="DarkGray" BorderThickness="2">
+                        <Image Source="{Binding Image}" Stretch="Uniform"/>
+                    </Border>
+
+                </Grid>
+            </Grid>
+            <!--<DockPanel DataContext="{Binding CurrentPost}" Margin="5">
+
+                
+            </DockPanel>-->
         </DockPanel>
     </Grid>
 </Window>

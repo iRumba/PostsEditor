@@ -45,7 +45,11 @@ namespace PostsEditor.Logic
             var path = GetImageFilePath();
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
                 return null;
-            return Image.FromFile(path);
+
+            var bytes = File.ReadAllBytes(path);
+            var ms = new MemoryStream(bytes);
+            return Image.FromStream(ms);
+            
         }
 
         public void SetImage(Image image)
