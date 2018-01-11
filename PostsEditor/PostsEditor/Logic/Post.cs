@@ -42,7 +42,10 @@ namespace PostsEditor.Logic
 
         public Image GetImage()
         {
-            return Image.FromFile(GetImageFilePath());
+            var path = GetImageFilePath();
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+                return null;
+            return Image.FromFile(path);
         }
 
         public void SetImage(Image image)
@@ -67,9 +70,7 @@ namespace PostsEditor.Logic
         public void Remake()
         {
             foreach(var file in GetAllFiles())
-            {
-                File.Replace(file, Path.Combine(WorkPath, "Remake", Path.GetFileName(file)), null);
-            }
+                File.Move(file, Path.Combine(GetRemakeDir(), Path.GetFileName(file)));
         }
 
         //public void SetImage(Stream imageStream)
@@ -118,6 +119,14 @@ namespace PostsEditor.Logic
         IEnumerable<string> GetAllFiles()
         {
             return Directory.GetFiles(WorkPath, $"{PostTitle}.*");
+        }
+
+        string GetRemakeDir()
+        {
+            var res = Path.Combine(WorkPath, "Remake");
+            if (!Directory.Exists(res))
+                Directory.CreateDirectory(res);
+            return res;
         }
     }
 }

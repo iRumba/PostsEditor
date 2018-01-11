@@ -61,7 +61,7 @@ namespace PostsEditor.ViewModels
 
         ImageSource GetImage()
         {
-            return _post.GetImage().ToImageSource();
+            return _post.GetImage()?.ToImageSource();
         }
 
         public void Remove()

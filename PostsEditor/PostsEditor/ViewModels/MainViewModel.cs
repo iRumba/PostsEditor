@@ -22,6 +22,8 @@ namespace PostsEditor.ViewModels
         public RelayCommand OpenDirectoryCommand { get; }
         public RelayCommand RemakeCommand { get; }
         public RelayCommand RemoveCommand { get; }
+        public RelayCommand NextCommand { get; }
+        public RelayCommand PrevCommand { get; }
 
         public string Directory
         {
@@ -62,6 +64,10 @@ namespace PostsEditor.ViewModels
         public MainViewModel()
         {
             OpenDirectoryCommand = new RelayCommand(OpenDirectory);
+            RemoveCommand = new RelayCommand(Remove, CanRemove);
+            RemakeCommand = new RelayCommand(Remake, CanRemake);
+            NextCommand = new RelayCommand(SelectNext, CanSelectNext);
+            PrevCommand = new RelayCommand(SelectPrev, CanSelectPrev);
         }
 
         async void OpenDirectory(object parameter)
@@ -117,6 +123,26 @@ namespace PostsEditor.ViewModels
             if (CurrentPostIndex == _posts.Count)
                 CurrentPostIndex--;
             OnPropertyChanged(nameof(PostsCount));
+        }
+
+        void SelectNext(object parameter)
+        {
+            CurrentPostIndex++;
+        }
+
+        bool CanSelectNext(object parameter)
+        {
+            return CurrentPostIndex < PostsCount;
+        }
+
+        void SelectPrev(object parameter)
+        {
+            CurrentPostIndex--;
+        }
+
+        bool CanSelectPrev(object parameter)
+        {
+            return CurrentPostRealIndex > 0;
         }
     }
 }
