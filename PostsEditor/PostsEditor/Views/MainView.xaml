@@ -14,6 +14,8 @@
         <KeyBinding Key="Right" Command="{Binding NextCommand}"/>
         <KeyBinding Key="Left" Command="{Binding PrevCommand}"/>
         <KeyBinding Key="O" Command="{Binding OpenDirectoryCommand}" Modifiers="Ctrl"/>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding RemakeCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding RemoveCommand}"/>
     </Window.InputBindings>
     <Grid Margin="10">
         <DockPanel Margin="5">
