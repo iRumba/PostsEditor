@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Mvvm;
+using Ookii.Dialogs.Wpf;
 using PostsEditor.Logic;
 using System;
 using System.Collections.Generic;
@@ -72,15 +73,13 @@ namespace PostsEditor.ViewModels
 
         async void OpenDirectory(object parameter)
         {
-            using (var dialog = new FolderBrowserDialog())
+            var dialog = new VistaFolderBrowserDialog();
+            dialog.SelectedPath = Directory;
+            var result = dialog.ShowDialog();
+            if (result.HasValue && result.Value)
             {
-                dialog.SelectedPath = Directory;
-                var result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    Directory = dialog.SelectedPath;
-                    await OnDirectoryChanged();
-                } 
+                Directory = dialog.SelectedPath;
+                await OnDirectoryChanged();
             }
         }
 

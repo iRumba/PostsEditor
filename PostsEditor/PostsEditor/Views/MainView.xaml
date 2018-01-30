@@ -10,6 +10,11 @@
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="Right" Command="{Binding NextCommand}"/>
+        <KeyBinding Key="Left" Command="{Binding PrevCommand}"/>
+        <KeyBinding Key="O" Command="{Binding OpenDirectoryCommand}" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <Grid Margin="10">
         <DockPanel Margin="5">
             <StackPanel DockPanel.Dock="Right" Width="300" Margin="5">
